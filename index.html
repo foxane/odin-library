@@ -35,11 +35,36 @@
             </div>
           </div>
         </div>
-        <div id="card-1" class="card-book"></div>
-        <div id="card-1" class="card-book"></div>
-        <div id="card-1" class="card-book"></div>
       </section>
     </main>
+    <aside>
+      <dialog class="dialog">
+        <form action="" method="dialog">
+          <h3 class="center-text">Add new book</h3>
+          <label for="input-title">
+            Title
+            <input type="text" id="input-title" />
+          </label>
+          <label for="input-author">
+            Author
+            <input type="text" id="input-author" />
+          </label>
+          <label for="input-pages">
+            Number of Pages
+            <input type="number" id="input-pages" />
+          </label>
+          <label for="input-year">
+            Release Year
+            <input type="number" id="input-year" />
+          </label>
+          <label for="input-read">
+            <input type="checkbox" id="input-read" />
+            Mark as Read
+          </label>
+          <button type="submit">Submit</button>
+        </form>
+      </dialog>
+    </aside>
     <script src="script.js"></script>
   </body>
 </html>

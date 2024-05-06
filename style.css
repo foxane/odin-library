@@ -103,6 +103,25 @@ main {
   background-color: hsl(0, 50%, 66%);
 }
 
+.dialog {
+  margin: auto;
+}
+form {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 10px;
+  width: 400px;
+  height: 500px;
+  padding: 20px;
+  background-color: var(--clr-bg-card);
+  border: 1px solid var(--clr-border);
+  color: var(--clr-text);
+}
+label {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* Hover */
 button {
   border: 2px solid transparent;
@@ -112,4 +131,9 @@ button :active {
   filter: saturate(400%);
   cursor: pointer;
   border: 2px solid white;
+}
+
+/* Utils */
+.center-text {
+  text-align: center;
 }
