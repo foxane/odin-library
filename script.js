@@ -39,15 +39,20 @@ function clearInput() {
   });
 }
 function addBookToLibrary() {
+  const isPageValid = inputPages.value.indexOf('e') === -1 ? true : false;
+  const isYearValid = inputYear.value.indexOf('e') === -1 ? true : false;
+  if (!inputTitle.value && !isPageValid && !isYearValid) return;
   const book = new Book(
     inputTitle.value,
     inputAuthor.value,
     inputPages.value,
     inputYear.value,
-    inputRead.value
+    inputRead.checked
   );
   library.push(book);
 }
+
+// UI control
 
 // Button control
 btnAdd.addEventListener('click', function () {
