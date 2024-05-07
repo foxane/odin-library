@@ -26,7 +26,6 @@ function Book(
 }
 
 // Input control
-// fuck you e,+,-
 const invalidChars = ['-', '+', 'e'];
 inputNodes.forEach((el) => {
   if (el.getAttribute('type') === 'number') {
@@ -48,7 +47,6 @@ function clearInput() {
 function addBookToLibrary(title, author, pages, year, read) {
   const book = new Book(title, author, pages, year, read);
   library.push(book);
-  iterateLibrary();
 }
 
 // Button control
@@ -62,7 +60,6 @@ btnCancel.addEventListener('click', function () {
 });
 form.addEventListener('submit', function (e) {
   e.preventDefault();
-
   const cleanInput = [];
   inputNodes.forEach((el) => {
     if (el.getAttribute('type') !== 'checkbox') {
@@ -71,14 +68,15 @@ form.addEventListener('submit', function (e) {
       cleanInput.push(el.checked);
     }
   });
-
   addBookToLibrary(...cleanInput);
+  iterateLibrary();
   this.submit();
 });
 
 // UI control
 //oh boy..
 function iterateLibrary() {
+  console.time('IterateLibrary');
   console.log(library);
   libraryUi.innerHTML = '';
   let libEl = '';
@@ -86,6 +84,19 @@ function iterateLibrary() {
     libEl += createCard(i, book);
   }
   libraryUi.innerHTML = libEl;
+  document.querySelectorAll('.btn-remove').forEach((btn) => {
+    btn.addEventListener('click', function () {
+      library.splice(btn.getAttribute('id'), 1);
+      iterateLibrary();
+    });
+  });
+  document.querySelectorAll('.btn-read').forEach((btn) => {
+    btn.addEventListener('click', function () {
+      library[btn.getAttribute('id')].read = true;
+      iterateLibrary();
+    });
+  });
+  console.timeEnd('IterateLibrary');
 }
 function createCard(i, book) {
   const isRead = book.read;
@@ -110,10 +121,10 @@ function createCard(i, book) {
       <span id="read">${book.read ? 'Has been read' : 'Not read yet'}</span>
     </p>
     <div class="buttons">
-      <button type="button" class="btn-remove" id="rm-${i}">Remove</button>
+      <button type="button" class="btn-remove" id="${i}">Remove</button>
       ${
         !isRead
-          ? `<button type="button" class="btn-read" id="rd-${i}">Read</button>`
+          ? `<button type="button" class="btn-read" id="${i}">Read</button>`
           : ''
       }
     </div>
