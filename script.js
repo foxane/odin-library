@@ -3,11 +3,7 @@ const libraryUi = document.querySelector('.library');
 const btnAdd = document.querySelector('.btn-add');
 // | Modal
 const modal = document.querySelector('dialog');
-const inputTitle = document.getElementById('input-title');
-const inputAuthor = document.getElementById('input-author');
-const inputPages = document.getElementById('input-pages');
-const inputYear = document.getElementById('input-year');
-const inputRead = document.getElementById('input-read');
+
 const btnSubmit = document.querySelector('.btn-submit');
 const btnCancel = document.querySelector('.btn-cancel');
 
@@ -38,18 +34,10 @@ function clearInput() {
     }
   });
 }
-function addBookToLibrary() {
-  const isPageValid = inputPages.value.indexOf('e') === -1 ? true : false;
-  const isYearValid = inputYear.value.indexOf('e') === -1 ? true : false;
-  if (!inputTitle.value && !isPageValid && !isYearValid) return;
-  const book = new Book(
-    inputTitle.value,
-    inputAuthor.value,
-    inputPages.value,
-    inputYear.value,
-    inputRead.checked
-  );
+function addBookToLibrary(title, author, pages, year, read = false) {
+  const book = new Book(title, author, pages, year, read);
   library.push(book);
+  console.log(library);
 }
 
 // UI control
@@ -64,6 +52,16 @@ btnCancel.addEventListener('click', function () {
   clearInput();
 });
 btnSubmit.addEventListener('click', function () {
-  addBookToLibrary();
-  console.log(library);
+  // Iterate inputs
+  const inputs = [];
+  document.querySelectorAll('input').forEach((el) => {
+    if (el.getAttribute('type') !== 'checkbox') {
+      inputs.push(el.value);
+    } else {
+      inputs.push(el.checked);
+    }
+  });
+  addBookToLibrary(...inputs);
+
+  console.log(inputs);
 });
