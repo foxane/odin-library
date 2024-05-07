@@ -34,7 +34,7 @@ function clearInput() {
     }
   });
 }
-function addBookToLibrary(title, author, pages, year, read = false) {
+function addBookToLibrary(title, author, pages, year, read) {
   const book = new Book(title, author, pages, year, read);
   library.push(book);
   console.log(library);
@@ -51,16 +51,4 @@ btnCancel.addEventListener('click', function () {
   modal.close();
   clearInput();
 });
-btnSubmit.addEventListener('click', function () {
-  // Iterate inputs
-  const inputs = [];
-  document.querySelectorAll('input').forEach((el) => {
-    if (el.getAttribute('type') !== 'checkbox') {
-      inputs.push(el.value ? el.value : 'Unknown');
-    } else {
-      inputs.push(el.checked);
-    }
-  });
-  addBookToLibrary(...inputs);
-  console.log(inputs);
-});
+btnSubmit.addEventListener('click', function () {});
