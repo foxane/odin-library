@@ -2,7 +2,7 @@
 :root {
   --clr-bg: #141414;
   --clr-bg-card: #1a1919;
-  --clr-header: #000000;
+  --clr-header: hsl(0, 0%, 8%);
   --clr-border: #474747;
   --clr-cta-1: hsl(39, 50%, 61%);
   --clr-cta-2: #3389e4;
@@ -105,17 +105,19 @@ main {
 
 .dialog {
   margin: auto;
+  background-color: var(--clr-bg-card);
+  border: 1px solid var(--clr-border);
+  border-radius: 5px;
+  color: var(--clr-text);
 }
 form {
   display: flex;
   flex-flow: column nowrap;
   gap: 10px;
   width: 400px;
-  height: 400px;
+  height: 370px;
   padding: 20px;
-  background-color: var(--clr-bg-card);
-  border: 1px solid var(--clr-border);
-  color: var(--clr-text);
+
   position: relative;
 }
 h3 {
