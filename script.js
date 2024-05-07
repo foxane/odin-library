@@ -1,6 +1,20 @@
-const myLibrary = [];
+// || DOM
+const libraryUi = document.querySelector('.library');
+const btnAdd = document.querySelector('.btn-add');
+// | Modal
+const modal = document.querySelector('dialog');
+const inputTitle = document.getElementById('input-title');
+const inputAuthor = document.getElementById('input-author');
+const inputPages = document.getElementById('input-pages');
+const inputYear = document.getElementById('input-year');
+const inputRead = document.getElementById('input-read');
+const btnSubmit = document.querySelector('.btn-submit');
+const btnCancel = document.querySelector('.btn-cancel');
+
+const library = [];
 
 function Book(
+  // Default values
   title,
   author = 'Unknown',
   pages = 'Unknown',
@@ -14,53 +28,37 @@ function Book(
   this.read = read;
 }
 
+// Input control
+function clearInput() {
+  document.querySelectorAll('input').forEach((element) => {
+    if (element.getAttribute('type') !== 'checkbox') {
+      element.value = '';
+    } else {
+      element.checked = false;
+    }
+  });
+}
 function addBookToLibrary() {
-  const book = new Book('lala');
-  myLibrary.push(book);
-  myLibrary.push(book);
-  myLibrary.push(book);
+  const book = new Book(
+    inputTitle.value,
+    inputAuthor.value,
+    inputPages.value,
+    inputYear.value,
+    inputRead.value
+  );
+  library.push(book);
 }
 
-const addBtn = document.querySelector('.btn-add');
-const dialog = document.querySelector('.dialog');
-const libraryUi = document.querySelector('.library');
-
-addBtn.addEventListener('click', function () {
-  dialog.showModal();
+// Button control
+btnAdd.addEventListener('click', function () {
+  clearInput();
+  modal.showModal();
 });
-addBookToLibrary();
-console.log(myLibrary);
-
-function updateUi() {
-  for (const [i, book] of myLibrary.entries()) {
-    libraryUi.innerHTML += `
-    <div id="card-${i}" class="card-book">
-    <img src="images/Drawing.jpeg" alt="book cover" width="180" />
-    <div class="book-info">
-      <p id="title">${book.title}</p>
-      <p>
-        By
-        <span id="author">${book.author}</span>
-      </p>
-      <p>
-        <span id="pages">${book.pages}</span>
-        Pages
-      </p>
-      <p>
-        Status:
-        <span id="read">${book.read ? 'Read' : 'Unread'}</span>
-      </p>
-      <p>
-      Released:
-      <span id="year">${book.year}</span>
-    </p>
-      <div class="buttons">
-        <button type="button" class="btn-remove">Remove</button>
-        <button type="button" class="btn-read">Read</button>
-      </div>
-    </div>
-  </div>
-    `;
-  }
-}
-updateUi();
+btnCancel.addEventListener('click', function () {
+  modal.close();
+  clearInput();
+});
+btnSubmit.addEventListener('click', function () {
+  addBookToLibrary();
+  console.log(library);
+});
