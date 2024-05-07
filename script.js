@@ -48,7 +48,7 @@ function clearInput() {
 function addBookToLibrary(title, author, pages, year, read) {
   const book = new Book(title, author, pages, year, read);
   library.push(book);
-  console.log(library);
+  iterateLibrary();
 }
 
 // Button control
@@ -78,3 +78,46 @@ form.addEventListener('submit', function (e) {
 
 // UI control
 //oh boy..
+function iterateLibrary() {
+  console.log(library);
+  libraryUi.innerHTML = '';
+  let libEl = '';
+  for (const [i, book] of library.entries()) {
+    libEl += createCard(i, book);
+  }
+  libraryUi.innerHTML = libEl;
+}
+function createCard(i, book) {
+  const isRead = book.read;
+  const card = `<div id="card-${i}" class="card-book">
+  <img src="images/Drawing.jpeg" alt="book cover" width="180" />
+  <div class="book-info">
+    <p id="title">${book.title}</p>
+    <p>
+      By
+      <span id="author">${book.author}</span>
+    </p>
+    <p>
+      <span id="pages">${book.pages}</span>
+      Pages
+    </p>
+    <p>
+      Released:
+      <span id="year">${book.year}</span>
+    </p>
+    <p>
+      Status:
+      <span id="read">${book.read ? 'Has been read' : 'Not read yet'}</span>
+    </p>
+    <div class="buttons">
+      <button type="button" class="btn-remove" id="rm-${i}">Remove</button>
+      ${
+        !isRead
+          ? `<button type="button" class="btn-read" id="rd-${i}">Read</button>`
+          : ''
+      }
+    </div>
+  </div>
+</div>`;
+  return card;
+}
