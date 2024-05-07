@@ -56,12 +56,11 @@ btnSubmit.addEventListener('click', function () {
   const inputs = [];
   document.querySelectorAll('input').forEach((el) => {
     if (el.getAttribute('type') !== 'checkbox') {
-      inputs.push(el.value);
+      inputs.push(el.value ? el.value : 'Unknown');
     } else {
       inputs.push(el.checked);
     }
   });
   addBookToLibrary(...inputs);
-
   console.log(inputs);
 });
