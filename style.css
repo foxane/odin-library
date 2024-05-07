@@ -2,7 +2,7 @@
 :root {
   --clr-bg: #141414;
   --clr-bg-card: #1a1919;
-  --clr-header: hsl(0, 0%, 8%);
+  --clr-header: hsl(0, 0%, 0%);
   --clr-border: #474747;
   --clr-cta-1: hsl(39, 50%, 61%);
   --clr-cta-2: #3389e4;
@@ -27,6 +27,7 @@ header {
   color: var(--clr-text);
   text-align: center;
   padding: 20px;
+  height: 90px;
 }
 
 main {
@@ -35,6 +36,7 @@ main {
   flex-flow: column nowrap;
   align-items: center;
   gap: 20px;
+  min-height: calc(100vh - 150px);
 }
 .btn-add {
   background-color: var(--clr-cta-1);
@@ -51,7 +53,7 @@ main {
   max-width: 1400px;
   padding: 0 40px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   grid-auto-rows: minmax(300px, 1fr);
   gap: 20px;
 }
@@ -70,8 +72,11 @@ main {
 .book-info {
   display: flex;
   flex-flow: column nowrap;
+  overflow-x: hidden;
+  overflow-wrap: normal;
   gap: 5px;
   width: 100%;
+  max-width: 100%;
 }
 .book-info p {
   font-style: italic;
@@ -161,9 +166,22 @@ input {
   border: 1px solid var(--clr-border);
 }
 
+footer {
+  width: 100%;
+  text-align: center;
+  background-color: var(--clr-header);
+  border-top: 1px solid var(--clr-border);
+  color: var(--clr-text);
+}
+footer a:any-link {
+  text-decoration: none;
+  color: var(--clr-cta-1);
+}
+
 /* Hover */
 button {
   border: 2px solid transparent;
+  transition: filter 0.25s, border 0.25s;
 }
 button:hover,
 button :active {
