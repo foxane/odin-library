@@ -20,6 +20,9 @@ class Book {
   removeBook() {
     Book.bookArr.splice(Book.bookArr.indexOf(this), 1);
   }
+  readBook() {
+    this.#read = true;
+  }
   get title() {
     return this.#title;
   }
@@ -34,10 +37,6 @@ class Book {
   }
   get read() {
     return this.#read;
-  }
-  set read(val) {
-    // unused arg since you can only toggle it
-    this.#read = true;
   }
 }
 
@@ -190,11 +189,11 @@ const createBookEl = function (index, bookObj) {
   if (!bookObj.read) btnDiv.appendChild(btnRead);
 
   btnRemove.addEventListener("click", () => {
-    Book.bookArr.splice(index, 1);
+    bookObj.removeBook();
     DOM.updateUi();
   });
   btnRead.addEventListener("click", () => {
-    Book.bookArr[index].read = true;
+    bookObj.readBook();
     DOM.updateUi();
   });
   return div;
