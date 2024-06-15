@@ -42,17 +42,18 @@ class Book {
 
 const DOM = (function () {
   // || DOM
-  const libraryUi = document.querySelector(".library");
-  const btnAdd = document.querySelector(".btn-add");
+  const libraryUi = document.querySelector('.library');
+  const btnAdd = document.querySelector('.btn-add');
   // | Modal
-  const modal = document.querySelector("dialog");
-  const form = document.querySelector("form");
-  const inputNodes = document.querySelectorAll("input");
-  const btnCancel = document.querySelector(".btn-cancel");
+  const modal = document.querySelector('dialog');
+  const form = document.querySelector('form');
+  const inputNodes = document.querySelectorAll('input');
+  const inputTitle = document.querySelector('#input-title');
+  const btnCancel = document.querySelector('.btn-cancel');
 
   // <--- UI control --->
   function updateUi() {
-    libraryUi.innerHTML = "";
+    libraryUi.innerHTML = '';
     if (Book.bookArr.length === 0) {
       libraryUi.innerHTML = `<p class="center-text" style="margin: auto; font-style: italic">
       Why am i empty?
@@ -65,19 +66,19 @@ const DOM = (function () {
 
   // <--- Input validation --->
   // Prevent symbol inputted in number field
-  const invalidChars = ["-", "+", "e", "."];
+  const invalidChars = ['-', '+', 'e', '.'];
   inputNodes.forEach((el) => {
-    if (el.getAttribute("type") === "number") {
-      el.addEventListener("keydown", (e) => {
+    if (el.getAttribute('type') === 'number') {
+      el.addEventListener('keydown', (e) => {
         if (invalidChars.includes(e.key)) e.preventDefault();
       });
     }
   });
   // remove value after sumbit
   function clearInput() {
-    document.querySelectorAll("input").forEach((element) => {
-      if (element.getAttribute("type") !== "checkbox") {
-        element.value = "";
+    document.querySelectorAll('input').forEach((element) => {
+      if (element.getAttribute('type') !== 'checkbox') {
+        element.value = '';
       } else {
         element.checked = false;
       }
@@ -85,20 +86,25 @@ const DOM = (function () {
   }
 
   // <--- Button control --->
-  btnAdd.addEventListener("click", function () {
+  btnAdd.addEventListener('click', function () {
     clearInput();
     modal.showModal();
   });
-  btnCancel.addEventListener("click", function () {
+  btnCancel.addEventListener('click', function () {
     modal.close();
     clearInput();
   });
-  form.addEventListener("submit", function (e) {
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
     const cleanInput = [];
+    if (inputTitle.validity.valueMissing) {
+      inputTitle.setCustomValidity('Every books need title. Change my mind');
+      inputTitle.reportValidity();
+      return;
+    }
     inputNodes.forEach((el) => {
-      if (el.getAttribute("type") !== "checkbox") {
-        cleanInput.push(el.value ? el.value : "Unknown");
+      if (el.getAttribute('type') !== 'checkbox') {
+        cleanInput.push(el.value ? el.value : 'Unknown');
       } else {
         cleanInput.push(el.checked);
       }
@@ -118,64 +124,64 @@ const addBookToLibrary = function (bookData) {
 
 // The argument is book object from the static array with their index
 const createBookEl = function (index, bookObj) {
-  const div = document.createElement("div");
-  div.setAttribute("id", `card-${Book.bookArr.indexOf(bookObj)}`);
-  div.setAttribute("class", "card-book");
+  const div = document.createElement('div');
+  div.setAttribute('id', `card-${Book.bookArr.indexOf(bookObj)}`);
+  div.setAttribute('class', 'card-book');
 
-  const img = document.createElement("img");
-  img.setAttribute("src", "images/Drawing.jpeg");
-  img.setAttribute("alt", `${bookObj.title}-cover`);
-  img.setAttribute("width", "180");
+  const img = document.createElement('img');
+  img.setAttribute('src', 'images/Drawing.jpeg');
+  img.setAttribute('alt', `${bookObj.title}-cover`);
+  img.setAttribute('width', '180');
 
-  const bookContent = document.createElement("div");
-  bookContent.setAttribute("class", "book-content");
+  const bookContent = document.createElement('div');
+  bookContent.setAttribute('class', 'book-content');
 
-  const titleP = document.createElement("p");
-  titleP.setAttribute("class", "bold");
+  const titleP = document.createElement('p');
+  titleP.setAttribute('class', 'bold');
   titleP.textContent = bookObj.title;
 
-  const authorP = document.createElement("p");
-  const authorSpan = document.createElement("span");
-  authorSpan.setAttribute("class", "bold");
+  const authorP = document.createElement('p');
+  const authorSpan = document.createElement('span');
+  authorSpan.setAttribute('class', 'bold');
   authorSpan.textContent = bookObj.author;
-  authorP.appendChild(document.createTextNode("By "));
+  authorP.appendChild(document.createTextNode('By '));
   authorP.appendChild(authorSpan);
 
-  const pagesP = document.createElement("p");
-  const pagesSpan = document.createElement("span");
-  pagesSpan.setAttribute("class", "bold");
+  const pagesP = document.createElement('p');
+  const pagesSpan = document.createElement('span');
+  pagesSpan.setAttribute('class', 'bold');
   pagesSpan.textContent = bookObj.pages;
   pagesP.appendChild(pagesSpan);
-  pagesP.appendChild(document.createTextNode(" Pages"));
+  pagesP.appendChild(document.createTextNode(' Pages'));
 
-  const yearP = document.createElement("p");
-  const yearSpan = document.createElement("span");
-  yearSpan.setAttribute("class", "bold");
+  const yearP = document.createElement('p');
+  const yearSpan = document.createElement('span');
+  yearSpan.setAttribute('class', 'bold');
   yearSpan.textContent = bookObj.year;
-  yearP.appendChild(document.createTextNode("Released in: "));
+  yearP.appendChild(document.createTextNode('Released in: '));
   yearP.appendChild(yearSpan);
 
-  const readP = document.createElement("p");
-  const readSpan = document.createElement("span");
-  readSpan.setAttribute("class", "bold");
-  readSpan.textContent = bookObj.read ? "Has been read" : "Not read yet";
-  readP.appendChild(document.createTextNode("Status: "));
+  const readP = document.createElement('p');
+  const readSpan = document.createElement('span');
+  readSpan.setAttribute('class', 'bold');
+  readSpan.textContent = bookObj.read ? 'Has been read' : 'Not read yet';
+  readP.appendChild(document.createTextNode('Status: '));
   readP.appendChild(readSpan);
 
-  const btnDiv = document.createElement("div");
-  btnDiv.setAttribute("class", "buttons");
+  const btnDiv = document.createElement('div');
+  btnDiv.setAttribute('class', 'buttons');
 
-  btnRemove = document.createElement("button");
-  btnRemove.setAttribute("type", "button");
-  btnRemove.setAttribute("class", "btn-remove");
-  btnRemove.setAttribute("id", `remove-${index}`);
-  btnRemove.textContent = "Remove";
+  btnRemove = document.createElement('button');
+  btnRemove.setAttribute('type', 'button');
+  btnRemove.setAttribute('class', 'btn-remove');
+  btnRemove.setAttribute('id', `remove-${index}`);
+  btnRemove.textContent = 'Remove';
 
-  btnRead = document.createElement("button");
-  btnRead.setAttribute("type", "button");
-  btnRead.setAttribute("class", "btn-read");
-  btnRead.setAttribute("id", `read-${index}`);
-  btnRead.textContent = "Read";
+  btnRead = document.createElement('button');
+  btnRead.setAttribute('type', 'button');
+  btnRead.setAttribute('class', 'btn-read');
+  btnRead.setAttribute('id', `read-${index}`);
+  btnRead.textContent = 'Read';
 
   div.appendChild(img);
   div.appendChild(bookContent);
@@ -188,11 +194,11 @@ const createBookEl = function (index, bookObj) {
   btnDiv.appendChild(btnRemove);
   if (!bookObj.read) btnDiv.appendChild(btnRead);
 
-  btnRemove.addEventListener("click", () => {
+  btnRemove.addEventListener('click', () => {
     bookObj.removeBook();
     DOM.updateUi();
   });
-  btnRead.addEventListener("click", () => {
+  btnRead.addEventListener('click', () => {
     bookObj.readBook();
     DOM.updateUi();
   });
